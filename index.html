@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
     <title>Romantic Universe</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #050505; /* 深邃星空黑 */
+            background-color: #050505;
             display: flex; align-items: center; justify-content: center;
             font-family: 'Noto Serif SC', serif;
             overflow: hidden;
         }
 
-        /* 动态星空背景 */
+        /* 动态星空 */
         .stars-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
@@ -30,12 +26,10 @@
         }
 
         @keyframes twinkle {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.7; }
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
 
-        /* 磨砂玻璃卡片 */
         .card {
             position: relative;
             background: rgba(255, 255, 255, 0.07);
@@ -43,90 +37,109 @@
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 30px;
-            padding: 50px 30px;
-            width: 85%; max-width: 400px;
+            padding: 40px 20px;
+            width: 85%; max-width: 360px;
             text-align: center;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 2s ease-out;
+            transition: all 1s ease;
         }
 
-        /* 象牙白语录文字 */
+        /* 初始内容容器 */
+        #initial-content {
+            transition: opacity 0.8s ease;
+        }
+
         #quote {
-            color: #F5F5F0 !important; 
-            font-size: 1.4rem;
-            line-height: 2;
-            font-weight: 300;
+            color: #F5F5F0 !important;
+            font-size: 1.3rem;
+            line-height: 1.8;
             margin-bottom: 30px;
-            /* 增强文字阴影，确保在任何星光背景下都清晰 */
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 2px 2px 4px rgba(0,0,0,0.9);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        /* 美团支付按钮：星轨描边风格 */
-        .pay-button {
+        .action-btn {
             display: inline-block;
-            padding: 12px 35px;
+            padding: 12px 30px;
             color: #F5F5F0;
             text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 2px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
             transition: all 0.4s ease;
         }
 
-        .pay-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #E6B3B3; /* 莫兰迪粉金边框 */
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(230, 179, 179, 0.2);
+        /* 收款码容器：初始隐藏 */
+        #qr-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        #meituan-img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         .heart-icon {
             color: #E6B3B3;
-            font-size: 1.2rem;
-            margin-top: 30px;
-            opacity: 0.6;
+            font-size: 1rem;
+            margin-top: 25px;
+            opacity: 0.5;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* 隐藏类 */
+        .hidden { opacity: 0 !important; pointer-events: none; }
     </style>
 </head>
 <body>
     <div class="stars-container"></div>
     
-    <div class="card">
-        <div id="quote">正在对齐星轨...</div>
-        
-        <a href="imeituan://www.meituan.com/mop/v1/prepay/store/2NxOpYVXgSW" class="pay-button" id="payBtn">
-            解锁今日甜蜜
-        </a>
+    <div class="card" id="mainCard">
+        <div id="initial-content">
+            <div id="quote">正在观测星轨...</div>
+            <div class="action-btn" onclick="showQR()">解锁今日甜蜜</div>
+        </div>
+
+        <div id="qr-content">
+            <div style="color: #F5F5F0; margin-bottom: 15px; font-size: 0.9rem; opacity: 0.8;">
+                星光指引，长按识别支付
+            </div>
+            <img src="meituan_code.jpg" id="meituan-img" alt="Payment Code">
+        </div>
 
         <div class="heart-icon">✦</div>
     </div>
 
     <script>
-        const library = [
+        const quotes = [
             "山河远阔，人间烟火，无一是你，无一不是你。",
             "月色与雪色之间，你是第三种绝色。",
             "纵使星河璀璨，你仍是我眼里的唯一。",
             "我曾观测过千万颗恒星，却唯独在你眼中找到了光。",
-            "在 10^10 年的演化中，遇到你的概率是奇迹。",
-            "You are my today and all of my tomorrows.",
-            "To me, you are the universe.",
-            "La vie est une fleur dont l'amour est le miel."
+            "在 10^10 年的演化中，遇到你的概率是奇迹。"
         ];
 
-        function displayRandomQuote() {
-            const randomQuote = library[Math.floor(Math.random() * library.length)];
-            document.getElementById('quote').innerText = randomQuote;
-        }
+        document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-        // 初始化显示
-        displayRandomQuote();
+        function showQR() {
+            const initial = document.getElementById('initial-content');
+            const qr = document.getElementById('qr-content');
+            
+            // 1. 淡出语录
+            initial.classList.add('hidden');
+            
+            setTimeout(() => {
+                initial.style.display = 'none';
+                // 2. 显示并淡入收款码
+                qr.style.display = 'block';
+                setTimeout(() => {
+                    qr.style.opacity = '1';
+                }, 50);
+            }, 800);
+        }
     </script>
 </body>
 </html>
