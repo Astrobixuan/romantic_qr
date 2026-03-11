@@ -3,65 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Gift of Words</title>
+    <title>Romantic Universe</title>
     <style>
-        /* 新的星空色调 CSS */
-body {
-    margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
-    /* 深邃夜空背景 */
-    background-color: #000;
-    background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-        radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-    
-    /* 模拟星光闪烁 */
-    animation: stars-twinkle 4s ease-in-out infinite;
-    font-family: 'Noto Serif SC', serif; overflow: hidden;
-}
+        /* 导入高级衬线字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500&display=swap');
 
-@keyframes stars-twinkle {
-    0% { background-position: 0 0, 40px 60px, 130px 270px, 70px 100px; }
-    50% { background-position: -50px -50px, -10px 10px, 80px 220px, 20px 50px; }
-    100% { background-position: 0 0, 40px 60px, 130px 270px, 70px 100px; }
-}
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #050505; /* 深邃星空黑 */
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Noto Serif SC', serif;
+            overflow: hidden;
+        }
+
+        /* 动态背景：模拟星星 */
+        .stars-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            animation: twinkle 10s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { transform: translate(0, 0); opacity: 0.8; }
+            50% { transform: translate(-20px, -20px); opacity: 1; }
+            100% { transform: translate(0, 0); opacity: 0.8; }
+        }
+
+        /* 磨砂玻璃卡片 */
+        .card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 80%; max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* 重点：象牙白文字，解决看不清的问题 */
+        #quote {
+            color: #F5F5F0; /* 象牙白 */
+            font-size: 1.4rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 20px;
+            /* 柔和的发光感 */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .heart-icon {
+            color: #E6B3B3; /* 莫兰迪粉金 */
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="text">正在为你折叠星光...</div>
+    <div class="stars-container"></div>
+    <div class="card">
+        <div id="quote">正在对齐星轨...</div>
+        <div class="heart-icon">✦</div>
     </div>
 
     <script>
         const library = {
-            zh: {
-                subjects: ["月色", "清风", "晚霞", "万物", "星河", "余生"],
-                actions: ["不及你", "皆为你", "因你而温柔", "都藏着对你的告白"],
-                quotes: ["浮世三千，吾爱有三：日、月与卿。", "你是四月早天里的云烟。", "山河远阔，人间烟火，无一是你，无一不是你。"]
-            },
-            en: ["You are my today and all of my tomorrows.", "I love you more than words can say.", "In your smile, I see something more beautiful than the stars."],
-            fr: ["Je t'aime pour toujours.", "Tu es ma plus belle histoire d'amour.", "La vie est belle avec toi."]
+            zh: [
+                "山河远阔，人间烟火，无一是你，无一不是你。",
+                "月色与雪色之间，你是第三种绝色。",
+                "在这个瞬间，我只看向你。",
+                "纵使星河璀璨，你仍是我眼里的唯一。",
+                "我曾观测过千万颗恒星，却唯独在你眼中找到了光。"
+            ],
+            en: [
+                "You are my today and all of my tomorrows.",
+                "In all the world, there is no heart for me like yours.",
+                "Whatever our souls are made of, his and mine are the same.",
+                "To me, you are the universe."
+            ],
+            fr: [
+                "Je t'aime plus qu'hier et moins que demain.",
+                "Tu es ma plus belle histoire d'amour.",
+                "La vie est une fleur dont l'amour est le miel.",
+                "Aimer, c'est regarder ensemble dans la même direction."
+            ]
         };
 
-        function generate() {
-            const dice = Math.random();
-            let result = "";
-            if (dice < 0.4) { // 动态组合中文
-                const s = library.zh.subjects[Math.floor(Math.random() * library.zh.subjects.length)];
-                const a = library.zh.actions[Math.floor(Math.random() * library.zh.actions.length)];
-                result = s + a;
-            } else if (dice < 0.7) { // 随机英文
-                result = library.en[Math.floor(Math.random() * library.en.library.en.length)];
-            } else { // 随机法语或中文名句
-                const combined = [...library.zh.quotes, ...library.fr];
-                result = combined[Math.floor(Math.random() * combined.length)];
-            }
-            document.getElementById('text').innerText = result;
+        function displayRandomQuote() {
+            const allQuotes = [...library.zh, ...library.en, ...library.fr];
+            const randomQuote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+            document.getElementById('quote').innerText = randomQuote;
         }
-        generate(); // 运行生成
+
+        // 执行随机显示
+        displayRandomQuote();
     </script>
 </body>
 </html>
