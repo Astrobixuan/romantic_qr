@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    
     <title>Romantic Universe</title>
     <style>
-        /* 导入高级衬线字体 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500&display=swap');
 
         body, html {
@@ -19,97 +20,112 @@
             overflow: hidden;
         }
 
-        /* 动态背景：模拟星星 */
+        /* 动态星空背景 */
         .stars-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
                         radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 30px);
             background-size: 550px 550px, 350px 350px;
-            animation: twinkle 10s linear infinite;
+            animation: twinkle 12s linear infinite;
         }
 
         @keyframes twinkle {
-            0% { transform: translate(0, 0); opacity: 0.8; }
-            50% { transform: translate(-20px, -20px); opacity: 1; }
-            100% { transform: translate(0, 0); opacity: 0.8; }
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
         }
 
         /* 磨砂玻璃卡片 */
         .card {
             position: relative;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 40px 30px;
-            width: 80%; max-width: 400px;
+            border-radius: 30px;
+            padding: 50px 30px;
+            width: 85%; max-width: 400px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             animation: fadeIn 2s ease-out;
         }
 
-        /* 重点：象牙白文字，解决看不清的问题 */
+        /* 象牙白语录文字 */
         #quote {
-            color: #F5F5F0; /* 象牙白 */
+            color: #F5F5F0 !important; 
             font-size: 1.4rem;
-            line-height: 1.8;
+            line-height: 2;
             font-weight: 300;
-            margin-bottom: 20px;
-            /* 柔和的发光感 */
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 1px 1px 2px rgba(0,0,0,0.8);
+            margin-bottom: 30px;
+            /* 增强文字阴影，确保在任何星光背景下都清晰 */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 2px 2px 4px rgba(0,0,0,0.9);
+        }
+
+        /* 美团支付按钮：星轨描边风格 */
+        .pay-button {
+            display: inline-block;
+            padding: 12px 35px;
+            color: #F5F5F0;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.4s ease;
+        }
+
+        .pay-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #E6B3B3; /* 莫兰迪粉金边框 */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 179, 179, 0.2);
         }
 
         .heart-icon {
-            color: #E6B3B3; /* 莫兰迪粉金 */
+            color: #E6B3B3;
             font-size: 1.2rem;
-            opacity: 0.8;
-            margin-top: 15px;
+            margin-top: 30px;
+            opacity: 0.6;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="stars-container"></div>
+    
     <div class="card">
         <div id="quote">正在对齐星轨...</div>
+        
+        <a href="https://wx.meituan.com/mop/v1/prepay/store/2NxOpYVXgSW" class="pay-button">
+            解锁今日甜蜜
+        </a>
+
         <div class="heart-icon">✦</div>
     </div>
 
     <script>
-        const library = {
-            zh: [
-                "山河远阔，人间烟火，无一是你，无一不是你。",
-                "月色与雪色之间，你是第三种绝色。",
-                "在这个瞬间，我只看向你。",
-                "纵使星河璀璨，你仍是我眼里的唯一。",
-                "我曾观测过千万颗恒星，却唯独在你眼中找到了光。"
-            ],
-            en: [
-                "You are my today and all of my tomorrows.",
-                "In all the world, there is no heart for me like yours.",
-                "Whatever our souls are made of, his and mine are the same.",
-                "To me, you are the universe."
-            ],
-            fr: [
-                "Je t'aime plus qu'hier et moins que demain.",
-                "Tu es ma plus belle histoire d'amour.",
-                "La vie est une fleur dont l'amour est le miel.",
-                "Aimer, c'est regarder ensemble dans la même direction."
-            ]
-        };
+        const library = [
+            "山河远阔，人间烟火，无一是你，无一不是你。",
+            "月色与雪色之间，你是第三种绝色。",
+            "纵使星河璀璨，你仍是我眼里的唯一。",
+            "我曾观测过千万颗恒星，却唯独在你眼中找到了光。",
+            "在 10^10 年的演化中，遇到你的概率是奇迹。",
+            "You are my today and all of my tomorrows.",
+            "To me, you are the universe.",
+            "La vie est une fleur dont l'amour est le miel."
+        ];
 
         function displayRandomQuote() {
-            const allQuotes = [...library.zh, ...library.en, ...library.fr];
-            const randomQuote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+            const randomQuote = library[Math.floor(Math.random() * library.length)];
             document.getElementById('quote').innerText = randomQuote;
         }
 
-        // 执行随机显示
+        // 初始化显示
         displayRandomQuote();
     </script>
 </body>
